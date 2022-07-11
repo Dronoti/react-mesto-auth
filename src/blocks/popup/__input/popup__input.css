@@ -1,0 +1,28 @@
+.popup__input {
+  font-family: inherit;
+  font-size: 14px;
+  line-height: calc(17 / 14);
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  padding: 0 0 10px;
+}
+
+.popup__input:focus {
+  outline: none;
+}
+
+.popup__input::-webkit-input-placeholder {
+  color: #C4C4C4;
+}
+
+.popup__input::-moz-placeholder {
+  color: #C4C4C4;
+}
+
+.popup__input::-ms-input-placeholder {
+  color: #C4C4C4;
+}
+
+.popup__input::placeholder {
+  color: #C4C4C4;
+}

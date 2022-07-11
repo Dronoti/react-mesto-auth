@@ -1,0 +1,17 @@
+.header {
+  max-width: 880px;
+  margin: 45px auto 0;
+  border-bottom: 1px solid rgba(84, 84, 84, .7);
+}
+
+@media screen and (max-width: 918px) {
+  .header {
+    margin: 45px 19px 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    margin: 24px auto 0;
+  }
+}

@@ -1,0 +1,14 @@
+.elements__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 246px;
+  margin: 23px 15px 18px 21px;
+}
+
+@media screen and (max-width: 767px) {
+  .elements__info {
+    margin: 25px 15px 25px 21px;
+    align-items: center;
+  }
+}
