@@ -1,0 +1,8 @@
+.form__button_inactive {
+  border: 1px solid white;
+  color: white;
+  background-color: black;
+  opacity: .35;
+  pointer-events: none;
+  padding: 13px 0;
+}

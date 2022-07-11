@@ -10,6 +10,7 @@ import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import PopupWithConfirmation from "./PopupWithConfirmation";
+import Login from "./Login";
 
 export default function App() {
     const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);

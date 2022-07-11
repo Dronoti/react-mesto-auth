@@ -1,0 +1,9 @@
+.form__button {
+  color: black;
+  background-color: white;
+  margin-top: 186px;
+}
+
+.form__button:hover {
+  opacity: .85;
+}

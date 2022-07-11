@@ -1,0 +1,27 @@
+.form__input {
+  color: white;
+  font-weight: 500;
+  background-color: transparent;
+  border-bottom: 2px solid #CCC;
+  padding: 0 0 9px;
+}
+
+.popup__input::-webkit-input-placeholder {
+  color: #CCC;
+  font-weight: 400;
+}
+
+.popup__input::-moz-placeholder {
+  color: #CCC;
+  font-weight: 400;
+}
+
+.popup__input::-ms-input-placeholder {
+  color: #CCC;
+  font-weight: 400;
+}
+
+.popup__input::placeholder {
+  color: #CCC;
+  font-weight: 400;
+}
