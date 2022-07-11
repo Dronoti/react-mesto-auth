@@ -48,3 +48,5 @@
 @import url('./blocks/popup/__input/_status/popup__input_status_error.css');
 @import url('./blocks/form/__button/form__button.css');
 @import url('./blocks/form/__button/_inactive/form__button_inactive.css');
+@import url('./blocks/form/__caption/form__caption.css');
+@import url('./blocks/form/__link/form__link.css');

@@ -8,6 +8,7 @@ export default function ScreenWithForm(props) {
                         type="submit" disabled={!props.isValidForm} name="buttonSubmit">
                     {props.textButton}
                 </button>
+                {props.regCaption}
             </form>
         </div>
     );
