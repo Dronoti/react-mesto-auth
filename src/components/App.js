@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
@@ -14,6 +14,7 @@ import PopupWithConfirmation from "./PopupWithConfirmation";
 import Login from "./Login";
 import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function App() {
     const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -24,6 +25,7 @@ export default function App() {
     const [selectedCard, setSelectedCard] = useState({});
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
+    const [isLoggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
         Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -136,7 +138,9 @@ export default function App() {
           <Routes>
               <Route
                   path='/'
-                  element={<>
+                  element={
+                  <ProtectedRoute
+                      isLoggedIn={isLoggedIn}>
                       <Main
                           onEditProfile={handleEditProfileClick}
                           onAddPlace={handleAddPlaceClick}
@@ -147,15 +151,15 @@ export default function App() {
                           onCardDelete={handleButtonDeleteClick}
                       />
                       <Footer />
-                  </>}
+                  </ProtectedRoute>}
               />
               <Route
                   path='/sign-in'
-                  element={<Login />}
+                  element={isLoggedIn ? <Navigate to='/' /> : <Login />}
               />
               <Route
                   path='/sign-up'
-                  element={<Register />}
+                  element={isLoggedIn ? <Navigate to='/' /> : <Register />}
               />
           </Routes>
           <EditProfilePopup
