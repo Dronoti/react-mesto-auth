@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
@@ -17,6 +17,7 @@ import InfoTooltip from "./InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute";
 
 export default function App() {
+    const navigate = useNavigate();
     const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
@@ -26,6 +27,7 @@ export default function App() {
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
     const [isLoggedIn, setLoggedIn] = useState(false);
+    const [email, setEmail] = useState('');
 
     useEffect(() => {
         Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -132,9 +134,19 @@ export default function App() {
         setCardIdToDelete('');
     }
 
+    function signOut() {
+        setLoggedIn(false);
+        localStorage.removeItem('jwt');
+        navigate('/sign-in');
+    }
+
     return (
       <CurrentUserContext.Provider value={currentUser}>
-          <Header />
+          <Header
+              email={email}
+              isLoggedIn={isLoggedIn}
+              signOut={signOut}
+          />
           <Routes>
               <Route
                   path='/'
