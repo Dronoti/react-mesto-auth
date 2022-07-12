@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import { Routes, Route } from "react-router-dom";
 import { api } from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
@@ -132,16 +133,31 @@ export default function App() {
     return (
       <CurrentUserContext.Provider value={currentUser}>
           <Header />
-          <Main
-              onEditProfile={handleEditProfileClick}
-              onAddPlace={handleAddPlaceClick}
-              onEditAvatar={handleEditAvatarClick}
-              onCardClick={handleCardClick}
-              cards={cards}
-              onCardLike={handleCardLike}
-              onCardDelete={handleButtonDeleteClick}
-          />
-          <Footer />
+          <Routes>
+              <Route
+                  path='/'
+                  element={<>
+                      <Main
+                          onEditProfile={handleEditProfileClick}
+                          onAddPlace={handleAddPlaceClick}
+                          onEditAvatar={handleEditAvatarClick}
+                          onCardClick={handleCardClick}
+                          cards={cards}
+                          onCardLike={handleCardLike}
+                          onCardDelete={handleButtonDeleteClick}
+                      />
+                      <Footer />
+                  </>}
+              />
+              <Route
+                  path='/sign-in'
+                  element={<Login />}
+              />
+              <Route
+                  path='/sign-up'
+                  element={<Register />}
+              />
+          </Routes>
           <EditProfilePopup
               isOpen={isEditProfilePopupOpen}
               onClose={closeAllPopups}
@@ -170,6 +186,7 @@ export default function App() {
               card={selectedCard}
               onClose={closeAllPopups}
           />
+          <InfoTooltip />
       </CurrentUserContext.Provider>
     );
 }

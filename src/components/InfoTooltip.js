@@ -1,8 +1,8 @@
 import React from 'react';
-// import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function InfoTooltip({isOpen, onClose, isSuccess}) {
-    // const history = useHistory();
+    const navigate = useNavigate();
 
     function stopPropagation(evt) {
         evt.stopPropagation();
@@ -10,8 +10,8 @@ export default function InfoTooltip({isOpen, onClose, isSuccess}) {
 
     function handleClose() {
         onClose();
-        // if (isSuccess)
-        //     history.push('/sign-in');
+        if (isSuccess)
+            navigate('/sign-in');
     }
 
     return (
