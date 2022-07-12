@@ -1,0 +1,14 @@
+.popup__status-logo {
+  width: 120px;
+  height: 120px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 32px;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__status-logo {
+    margin-bottom: 44px;
+  }
+}

@@ -12,6 +12,7 @@ import AddPlacePopup from "./AddPlacePopup";
 import PopupWithConfirmation from "./PopupWithConfirmation";
 import Login from "./Login";
 import Register from "./Register";
+import InfoTooltip from "./InfoTooltip";
 
 export default function App() {
     const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
