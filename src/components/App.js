@@ -22,6 +22,7 @@ export default function App() {
     const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+    const [isStatusPopupOpen, setStatusPopupOpen] = useState(false);
     const [isLoading, setLoading] = useState(false);
     const [cardIdToDelete, setCardIdToDelete] = useState('');
     const [selectedCard, setSelectedCard] = useState({});
@@ -29,6 +30,7 @@ export default function App() {
     const [cards, setCards] = useState([]);
     const [isLoggedIn, setLoggedIn] = useState(false);
     const [email, setEmail] = useState('');
+    const [isStatusOk, setStatusOk] = useState(false);
 
     useEffect(() => {
         handleTokenCheck();
@@ -154,8 +156,27 @@ export default function App() {
         setEditAvatarPopupOpen(false);
         setEditProfilePopupOpen(false);
         setAddPlacePopupOpen(false);
+        setStatusPopupOpen(false);
         setSelectedCard({});
         setCardIdToDelete('');
+    }
+
+    function handleRegister(registerData) {
+        setLoading(true);
+        auth.register(registerData)
+            .then(res => {
+                if (res.data)
+                    setStatusOk(true);
+                else
+                    setStatusOk(false);
+                setStatusPopupOpen(true);
+            })
+            .catch((err) => {
+                setStatusOk(false);
+                setStatusPopupOpen(true);
+                console.log(err);
+            })
+            .finally(() => setLoading(false));
     }
 
     function signOut() {
@@ -195,7 +216,13 @@ export default function App() {
               />
               <Route
                   path='/sign-up'
-                  element={isLoggedIn ? <Navigate to='/' /> : <Register />}
+                  element={isLoggedIn
+                      ? <Navigate to='/' />
+                      : <Register
+                          isLoading={isLoading}
+                          onRegister={handleRegister}
+                          isStatusOk={isStatusOk}
+                      />}
               />
           </Routes>
           <EditProfilePopup
@@ -226,7 +253,11 @@ export default function App() {
               card={selectedCard}
               onClose={closeAllPopups}
           />
-          <InfoTooltip />
+          <InfoTooltip
+              isOpen={isStatusPopupOpen}
+              onClose={closeAllPopups}
+              isSuccess={isStatusOk}
+          />
       </CurrentUserContext.Provider>
     );
 }
