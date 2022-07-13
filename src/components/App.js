@@ -1,4 +1,3 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import { api } from "../utils/api";
@@ -284,6 +283,8 @@ export default function App() {
               isOpen={isStatusPopupOpen}
               onClose={closeAllPopups}
               isSuccess={isStatusOk}
+              validText={'Вы успешно зарегистрировались!'}
+              invalidText={'Что-то пошло не так! Попробуйте ещё раз.'}
           />
       </CurrentUserContext.Provider>
     );

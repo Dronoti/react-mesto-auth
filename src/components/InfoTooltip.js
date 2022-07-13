@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
-export default function InfoTooltip({isOpen, onClose, isSuccess}) {
+export default function InfoTooltip({isOpen, onClose, isSuccess, validText, invalidText}) {
     const navigate = useNavigate();
 
     function stopPropagation(evt) {
@@ -20,8 +20,7 @@ export default function InfoTooltip({isOpen, onClose, isSuccess}) {
                 <button className="popup__close" type="button" onClick={handleClose}></button>
                 <div className={`popup__status-logo
                 ${isSuccess ? 'popup__status-logo_type_success' : 'popup__status-logo_type_fail'}`} />
-                <h2 className="popup__title">{isSuccess ? 'Вы успешно зарегистрировались!'
-                    : 'Что-то пошло не так! Попробуйте ещё раз.'}</h2>
+                <h2 className="popup__title">{isSuccess ? validText : invalidText}</h2>
             </div>
         </div>
     );
