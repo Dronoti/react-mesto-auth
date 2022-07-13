@@ -55,13 +55,13 @@ export default function App() {
             }
         }
 
-        if (isEditProfilePopupOpen || isAddPlacePopupOpen
+        if (isEditProfilePopupOpen || isAddPlacePopupOpen || isStatusPopupOpen
             || isEditAvatarPopupOpen || selectedCard._id || cardIdToDelete)
             document.addEventListener('keydown', onEscKeydown);
 
         return () => document.removeEventListener('keydown', onEscKeydown);
     }, [isEditProfilePopupOpen,isAddPlacePopupOpen, isEditAvatarPopupOpen,
-              selectedCard, cardIdToDelete]);
+              selectedCard, cardIdToDelete, isStatusPopupOpen]);
 
     function handleTokenCheck() {
         const jwt = localStorage.getItem('jwt');
@@ -69,7 +69,7 @@ export default function App() {
             auth.checkToken(jwt)
                 .then(res => {
                     if (res) {
-                        setEmail(res.email);
+                        setEmail(res.data.email);
                         setLoggedIn(true);
                     }
                 })
@@ -179,6 +179,27 @@ export default function App() {
             .finally(() => setLoading(false));
     }
 
+    function handleLogin(loginData) {
+        setLoading(true);
+        auth.authorize(loginData)
+            .then(res => {
+                if (res.token) {
+                    localStorage.setItem('jwt', res.token);
+                    setEmail(loginData.email);
+                    setLoggedIn(true);
+                } else {
+                    setStatusOk(false);
+                    setStatusPopupOpen(true);
+                }
+            })
+            .catch((err) => {
+                setStatusOk(false);
+                setStatusPopupOpen(true);
+                console.log(err);
+            })
+            .finally(() => setLoading(false));
+    }
+
     function signOut() {
         setLoggedIn(false);
         localStorage.removeItem('jwt');
@@ -212,7 +233,13 @@ export default function App() {
               />
               <Route
                   path='/sign-in'
-                  element={isLoggedIn ? <Navigate to='/' /> : <Login />}
+                  element={isLoggedIn
+                      ? <Navigate to='/' />
+                      : <Login
+                          isLoading={isLoading}
+                          onLogin={handleLogin}
+                          isStatusOk={isStatusOk}
+                      />}
               />
               <Route
                   path='/sign-up'
