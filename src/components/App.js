@@ -15,6 +15,7 @@ import Login from "./Login";
 import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute";
+import * as auth from '../utils/auth';
 
 export default function App() {
     const navigate = useNavigate();
@@ -30,13 +31,19 @@ export default function App() {
     const [email, setEmail] = useState('');
 
     useEffect(() => {
-        Promise.all([api.getUserInfo(), api.getInitialCards()])
-            .then(([info, initialCards]) => {
-                setCurrentUser(info);
-                setCards(initialCards);
-            })
-            .catch(err => alert(err));
+        handleTokenCheck();
     }, []);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            Promise.all([api.getUserInfo(), api.getInitialCards()])
+                .then(([info, initialCards]) => {
+                    setCurrentUser(info);
+                    setCards(initialCards);
+                })
+                .catch(err => alert(err));
+        }
+    }, [isLoggedIn]);
 
     useEffect(() => {
         const onEscKeydown = (evt) => {
@@ -53,6 +60,23 @@ export default function App() {
         return () => document.removeEventListener('keydown', onEscKeydown);
     }, [isEditProfilePopupOpen,isAddPlacePopupOpen, isEditAvatarPopupOpen,
               selectedCard, cardIdToDelete]);
+
+    function handleTokenCheck() {
+        const jwt = localStorage.getItem('jwt');
+        if (jwt) {
+            auth.checkToken(jwt)
+                .then(res => {
+                    if (res) {
+                        setEmail(res.email);
+                        setLoggedIn(true);
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    localStorage.removeItem('jwt');
+                });
+        }
+    }
 
     function handleCardLike(card, isLiked) {
         api.changeLikeCardStatus(card._id, isLiked)
