@@ -54,6 +54,7 @@
 @import url('./blocks/form/__button/_inactive/form__button_inactive.css');
 @import url('./blocks/form/__caption/form__caption.css');
 @import url('./blocks/form/__link/form__link.css');
+@import url('./blocks/form/__container/form__container.css');
 @import url('./blocks/popup/__status-logo/popup__status-logo.css');
 @import url('./blocks/popup/__container/_status/popup__container_status.css');
 @import url('./blocks/popup/__status-logo/_type/popup__status-logo_type_success.css');

@@ -2,3 +2,10 @@
   max-width: 358px;
   margin: 60px auto 0;
 }
+
+@media screen and (max-width: 767px) {
+  .form {
+    max-width: 260px;
+    margin-top: 40px;
+  }
+}

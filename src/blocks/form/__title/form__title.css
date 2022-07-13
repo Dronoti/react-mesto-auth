@@ -2,3 +2,11 @@
   color: white;
   text-align: center;
 }
+
+@media screen and (max-width: 767px) {
+  .form__title {
+    width: 260px;
+    font-size: 20px;
+    line-height: calc(24 / 20);
+  }
+}

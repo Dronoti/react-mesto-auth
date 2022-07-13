@@ -5,3 +5,9 @@
   text-align: center;
   margin: 15px 0 0;
 }
+
+@media screen and (max-width: 767px) {
+  .form__caption {
+    margin-top: 20px;
+  }
+}

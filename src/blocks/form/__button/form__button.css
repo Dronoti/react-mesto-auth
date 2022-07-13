@@ -7,3 +7,11 @@
 .form__button:hover {
   opacity: .85;
 }
+
+@media screen and (max-width: 767px) {
+  .form__button {
+    margin-top: 142px;
+    font-size: 16px;
+    line-height: calc(19 / 16);
+  }
+}
